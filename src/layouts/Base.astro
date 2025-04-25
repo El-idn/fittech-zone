@@ -1,0 +1,16 @@
+---
+import "../styles/tailwind.css";
+const { title } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{title || "FitTech Zone"}</title>
+  </head>
+  <body class="bg-gray-100 text-gray-900 font-sans">
+    <main class="max-w-4xl mx-auto px-4 py-8">
+      <slot />
+    </main>
+  </body>
+</html>
