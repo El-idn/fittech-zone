@@ -1,0 +1,34 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
+
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+const fitnessPosts = posts.filter(post => post.data.category === 'fitness');
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title="Fitness Tutorials | FitTech Zone" description="Daily workout guides, warmups, training tips, and routines." />
+  </head>
+  <body>
+    <Header />
+    <main class="max-w-4xl mx-auto px-6 py-16">
+      <h1 class="text-3xl font-bold mb-8 text-center">Fitness Tutorials</h1>
+      <div class="grid gap-8">
+        {fitnessPosts.map(post => (
+          <a href={`/blog/${post.slug}`} class="block p-6 bg-white rounded-xl shadow hover:shadow-lg transition">
+            <h2 class="text-2xl font-semibold mb-2">{post.data.title}</h2>
+            <p class="text-gray-600">{post.data.description}</p>
+          </a>
+        ))}
+      </div>
+    </main>
+    <Footer />
+  </body>
+</html>
+

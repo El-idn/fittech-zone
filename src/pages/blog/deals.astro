@@ -1,0 +1,33 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
+
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+const dealPosts = posts.filter(post => post.data.category === 'deals');
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title="Affiliate Deals | FitTech Zone" description="Get the best deals on fitness tech gear through our curated affiliate links." />
+  </head>
+  <body>
+    <Header />
+    <main class="max-w-4xl mx-auto px-6 py-16">
+      <h1 class="text-3xl font-bold mb-8 text-center">Affiliate Deals</h1>
+      <div class="grid gap-8">
+        {dealPosts.map(post => (
+          <a href={`/blog/${post.slug}`} class="block p-6 bg-white rounded-xl shadow hover:shadow-lg transition">
+            <h2 class="text-2xl font-semibold mb-2">{post.data.title}</h2>
+            <p class="text-gray-600">{post.data.description}</p>
+          </a>
+        ))}
+      </div>
+    </main>
+    <Footer />
+  </body>
+</html>
